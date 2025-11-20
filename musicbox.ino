@@ -7,6 +7,7 @@ Purpose:        Build a music box that plays retro-style tunez
 Libraries:      none
 Special-Items:  Piezo buzzer, pushbuttons, LEDs
 */
+
 // --- Note definitions: map note names to frequencies (Hz) ---
 #define NOTE_B0  31
 #define NOTE_C1  33
@@ -107,7 +108,8 @@ const int ledPin     = 13;  // Pin connected to an LED (or use built-in LED on p
 // ----- STUDENT EDIT ONLY THIS ARRAY -----
 // Replace the melody[] array below with your sequence from the Songs Library.
 // Format: { note, durationCode, note, durationCode, … }  
-int melody[] = {
+int melody[] = 
+{
   // Example: simple 8-note melody
   NOTE_C4, 4,
   NOTE_D4, 4,
@@ -121,7 +123,8 @@ int melody[] = {
 // -----------------------------------------
 int melodyLength = sizeof(melody) / sizeof(int);  // total number of elements in melody[]
 
-void setup() {
+void setup() 
+{
   pinMode(buzzerPin, OUTPUT);      // Set buzzer pin as output
   pinMode(buttonPin, INPUT_PULLUP); // Set button pin as input with built-in pull-up resistor
   pinMode(ledPin, OUTPUT);         // Set LED pin as output
@@ -130,9 +133,11 @@ void setup() {
   Serial.println("Music Box Ready! Press the button to play."); 
 }
 
-void loop() {
+void loop() 
+{
   // Check if the button is pressed (wired to ground when pressed)
-  if (digitalRead(buttonPin) == LOW) {
+  if (digitalRead(buttonPin) == LOW) 
+  {
     Serial.println("Playing melody...");
     playMelody(melody, melodyLength);  // Play your listed notes
     delay(500);                         // Pause after playing to avoid immediate retrigger
@@ -141,27 +146,35 @@ void loop() {
 
 // Function: playMelody()
 // Takes an array of note/duration pairs and plays them sequentially.
-void playMelody(int seq[], int count) {
+void playMelody(int seq[], int count) 
+{
   int tempo = 120;                     // Base tempo (beats per minute) – students may adjust
   int wholenote = (60000 * 4) / tempo; // Duration of a whole note in milliseconds
 
-  for (int i = 0; i < count; i += 2) {
+  for (int i = 0; i < count; i += 2) 
+  {
     int note         = seq[i];         // the note (frequency constant)
     int durationCode = seq[i + 1];     // code indicating how long to hold the note
 
     int noteDuration;
-    if (durationCode > 0) {
+    if (durationCode > 0) 
+    {
       noteDuration = wholenote / durationCode;               // regular note
-    } else {
+    } 
+      else 
+    {
       // dotted notes: negative durations mean “duration + half”
       noteDuration = wholenote / abs(durationCode);
       noteDuration *= 1.5;
     }
 
-    if (note == REST) {
+    if (note == REST) 
+    {
       noTone(buzzerPin);             // Silence for rest
       digitalWrite(ledPin, LOW);     // Turn off LED
-    } else {
+    } 
+      else 
+    {
       tone(buzzerPin, note, noteDuration * 0.9);  // Play tone slightly shorter to separate notes
       digitalWrite(ledPin, HIGH);                 // Turn on LED while playing
     }
