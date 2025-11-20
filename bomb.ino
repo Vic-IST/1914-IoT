@@ -99,17 +99,17 @@ void loop() {
     delay(200);
   }
 
-  // --- Colon blink (every 500 ms) ---
+  // --- Colon blinky (every 500 ms) ---
   if (millis() - lastColonBlink >= 500) {
     lastColonBlink = millis();
     colonOn = !colonOn;
     showTime(timerValue);
   }
 
-  // --- Countdown (every 1000 ms) ---
+  // --- timer/countdown (every 1000 ms) ---
   if (armed && !defused && millis() - lastTick >= 1000) {
     lastTick = millis();
-    tone(BUZZ, 1000, 80);      // tick/beep
+    tone(BUZZ, 1000, 80);      // ticky/beepy
     showTime(timerValue);
     Serial.print("Timer: "); Serial.println(timerValue);
     timerValue--;
